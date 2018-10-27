@@ -50,18 +50,27 @@ void internalnameeq(string a, string b) {
 	a += "[";
 	b += "[";
 
-	string adt, bdt;
+	string adt, bdt;string temp_a, temp_b;
+	smatch match_a;smatch match_b;
 	int i, j, flag = 0, store_line_a = 0, store_line_b = 0;
 	for(i = 0; i < x; i++) {
 		flag = 0;
 		j = 0;
 		while(s[i][j] != "") {
-			if (s[i][j++].rfind(a, 0) == 0) {
+			if (s[i][j].rfind(a, 0) == 0) {
+				const string a_size = s[i][j];
+				std::regex rgx(".*\\[(\\w+)\\]");
+
+			    if (std::regex_search(a_size.begin(), a_size.end(), match_a, rgx))
+			        std::cout << "match: " << match_a[1] << '\n';
+			    cout<<"match_a[1] : "<<match_a[1]<<endl;
+			    temp_a = match_a[1];
 				adt = s[i][0];
 				flag = 1;
 				store_line_a = i;
 				break;
 			}
+			j++;
 		}
 		if(flag == 1)
 			break;
@@ -71,15 +80,28 @@ void internalnameeq(string a, string b) {
 		flag = 0;
 		j = 0;
 		while(s[i][j] != "") {
-			if (s[i][j++].rfind(b, 0) == 0) {
+			if (s[i][j].rfind(b, 0) == 0) {
+				const string b_size = s[i][j];
+				std::regex rgx(".*\\[(\\w+)\\]");
+
+			    if (std::regex_search(b_size.begin(), b_size.end(), match_b, rgx))
+			        std::cout << "match: " << match_b[1] << '\n';
+			    cout<<"match_b[1] : "<<match_b[1]<<endl;
+			    temp_b = match_b[1];
 				bdt = s[i][0];
 				flag = 1;
 				store_line_b = i;
 				break;
 			}
+			j++;
 		}
 		if(flag == 1)
 			break;
+	}
+	cout<<"temp_a : "<<temp_a<<" and temp_b : "<<temp_b<<endl;
+	if(temp_a != temp_b) {
+		cout<< store_a << " and " << store_b << " are not internal name equivalent.\n";
+		return;
 	}
 
 	if(adt == bdt && store_line_a == store_line_b)
