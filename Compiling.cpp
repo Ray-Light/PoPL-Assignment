@@ -112,7 +112,8 @@ void internalnameeq(string a, string b) {
 		cout<< store_a << " and " << store_b << " are not internal name equivalent.\n";
 }
 
-void typedefeq(string a, string b) {
+int typedefeq(string a, string b) {
+	// cout<<"a : " << a <<" b : " <<b << endl;
 	string adt, bdt, line = "", line1 = "", store_a = a, store_b = b;
 	int i, j, flag, prev_i = 9999999;
 	while(1 == 1) {
@@ -182,11 +183,11 @@ void typedefeq(string a, string b) {
 			temp--;
 		}
 	}
-	cout<<"adt : "<<adt<<" and bdt : "<<bdt<<endl;
+	// cout<<"adt : "<<adt<<" and bdt : "<<bdt<<endl;
 	if(adt == bdt)
-		cout<< store_a << " and " << store_b << " are structural equivalent.\n";
+		return 1;//cout<< store_a << " and " << store_b << " are structural equivalent.\n";
 	else
-		cout<< store_a << " and " << store_b << " are not structural equivalent.\n";
+		return 0;//cout<< store_a << " and " << store_b << " are not structural equivalent.\n";
 }
 
 void structeq(string a, string b, string str1) {
@@ -357,6 +358,9 @@ void structeq(string a, string b, string str1) {
 										break;
 									}
 
+								}
+								else if((str[i][x] != "") && (str[j][x] != "") && (typedefeq(str[i][x], str[j][x]) == 1)) {
+									// cout<<"str[i][x] : "<<str[i][x]<<" str[j][x] : "<<str[j][x]<<endl;
 								}
 								else if(tab[i][j] != 0) {
 									tab[i][j] = 0;
