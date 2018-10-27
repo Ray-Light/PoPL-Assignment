@@ -61,9 +61,10 @@ void internalnameeq(string a, string b) {
 				const string a_size = s[i][j];
 				std::regex rgx(".*\\[(\\w+)\\]");
 
-			    if (std::regex_search(a_size.begin(), a_size.end(), match_a, rgx))
-			        std::cout << "match: " << match_a[1] << '\n';
-			    cout<<"match_a[1] : "<<match_a[1]<<endl;
+			    if (std::regex_search(a_size.begin(), a_size.end(), match_a, rgx)) {
+			        // std::cout << "match: " << match_a[1] << '\n';
+			    }
+			    // cout<<"match_a[1] : "<<match_a[1]<<endl;
 			    temp_a = match_a[1];
 				adt = s[i][0];
 				flag = 1;
@@ -84,9 +85,10 @@ void internalnameeq(string a, string b) {
 				const string b_size = s[i][j];
 				std::regex rgx(".*\\[(\\w+)\\]");
 
-			    if (std::regex_search(b_size.begin(), b_size.end(), match_b, rgx))
-			        std::cout << "match: " << match_b[1] << '\n';
-			    cout<<"match_b[1] : "<<match_b[1]<<endl;
+			    if (std::regex_search(b_size.begin(), b_size.end(), match_b, rgx)) {
+			        // std::cout << "match: " << match_b[1] << '\n';
+			    }
+			    // cout<<"match_b[1] : "<<match_b[1]<<endl;
 			    temp_b = match_b[1];
 				bdt = s[i][0];
 				flag = 1;
@@ -98,7 +100,7 @@ void internalnameeq(string a, string b) {
 		if(flag == 1)
 			break;
 	}
-	cout<<"temp_a : "<<temp_a<<" and temp_b : "<<temp_b<<endl;
+	// cout<<"temp_a : "<<temp_a<<" and temp_b : "<<temp_b<<endl;
 	if(temp_a != temp_b) {
 		cout<< store_a << " and " << store_b << " are not internal name equivalent.\n";
 		return;
@@ -110,8 +112,87 @@ void internalnameeq(string a, string b) {
 		cout<< store_a << " and " << store_b << " are not internal name equivalent.\n";
 }
 
+void typedefeq(string a, string b) {
+	string adt, bdt, line = "", line1 = "", store_a = a, store_b = b;
+	int i, j, flag, prev_i = 9999999;
+	while(1 == 1) {
+		flag = 0;
+		for(i = 0; i < x; i++) {
+			j = 0;
+			while(s[i][j] != "") {
+				if((s[i][j] == a) && (i < prev_i)) {
+					flag = 1;
+					adt = s[i][0];
+					a = adt;
+					prev_i = i;
+					break;
+				}
+				j++;
+			}
+		}
+		if(flag == 0)
+			break;
+	}
+
+	if(adt == "typedef") {
+		adt = "";
+		j = 0;
+		int temp = 0;
+		while(s[prev_i][j++] != "") {
+			temp++;
+		}
+		temp -= 2;
+		while(temp > 0) {
+			adt += s[prev_i][temp];
+			temp--;
+		}
+	}
+
+	prev_i = 9999999;
+
+	while(1 == 1) {
+		flag = 0;
+		for(i = 0; i < x; i++) {
+			j = 0;
+			while(s[i][j] != "") {
+				if((s[i][j] == b) && (i < prev_i)) {
+					flag = 1;
+					bdt = s[i][0];
+					b = bdt;
+					prev_i = i;
+					break;
+				}
+				j++;
+			}
+		}
+		if(flag == 0)
+			break;
+	}
+
+	if(bdt == "typedef") {
+		bdt = "";
+		j = 0;
+		int temp = 0;
+		while(s[prev_i][j++] != "") {
+			temp++;
+		}
+		temp -= 2;
+		while(temp > 0) {
+			bdt += s[prev_i][temp];
+			temp--;
+		}
+	}
+	cout<<"adt : "<<adt<<" and bdt : "<<bdt<<endl;
+	if(adt == bdt)
+		cout<< store_a << " and " << store_b << " are structural equivalent.\n";
+	else
+		cout<< store_a << " and " << store_b << " are not structural equivalent.\n";
+}
+
 void structeq(string a, string b, string str1) {
 	string line = "";
+
+	string s[100][100]; //PLEASE MODIFY IT LATER AS VARIABLE NAME IS SAME
 
 	int y = 0, i, j = 0, flag = 0;
 
@@ -346,6 +427,7 @@ void structeq(string a, string b, string str1) {
 void funceq(string a, string b, string str1) {
 
 	string line = "";
+	string s[100][100] ; //PLease change it later as variable name is same
 
 	int y = 0, i, j = 0, flag = 0;
 
