@@ -1,0 +1,21 @@
+/*First enter the whole test case and then enter any two values (like c and d) from below only to check for equivalence*/
+
+int a, b;
+int c;
+float d, e;
+float f;
+int g[4], h[4];
+int i[4];
+struct foo{
+int j;
+string k;
+};
+struct cat{
+int l;
+string m;
+};
+struct foo n, o;
+struct cat p;
+int func(int q, int r);
+int func1(int s, int t);
+float func2(int u);
